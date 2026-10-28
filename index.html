@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iron Man Hologram AR - Hand-Controlled Exploded View</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Three.js & GLTF Loader -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+  
+  <!-- Google MediaPipe Hands & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="app-container">
+    <!-- 3D Holographic Rendering Canvas -->
+    <canvas id="webgl-canvas"></canvas>
+
+    <!-- Visual Overlays (Iron Man Hologram Aesthetic) -->
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+    <div class="hud-center-reticle"></div>
+
+    <!-- Stark Industries HUD Overlay -->
+    <div id="hud-overlay">
+      <!-- Top HUD Header -->
+      <header class="hud-header">
+        <div class="hud-title-box">
+          <h1>STARK HUD // MARK LXXXV</h1>
+          <div class="hud-subtitle">HOLOGRAPHIC COMPONENT EXPLODER</div>
+        </div>
+
+        <div class="hud-controls-top hud-interactive">
+          <label class="hud-btn file-input-label">
+            UPLOAD SCAN / GLB
+            <input type="file" id="model-file-input" accept=".glb,.gltf" style="display: none;">
+          </label>
+          <button id="btn-default-model" class="hud-btn">ARC REACTOR</button>
+          <button id="btn-reset" class="hud-btn">ASSEMBLE</button>
+        </div>
+      </header>
+
+      <!-- Center Status Alert -->
+      <div id="status-toast">INITIALIZING JARVIS PROTOCOL...</div>
+
+      <!-- Bottom HUD Dashboard -->
+      <footer class="hud-bottom">
+        <!-- Telemetry & Gesture Metrics -->
+        <div class="hud-metrics">
+          <div class="metric-row">
+            <span>SENSORS:</span>
+            <span id="metric-hands">DETECTING...</span>
+          </div>
+          <div class="metric-row">
+            <span>EXPLOSION SEPARATION:</span>
+            <span id="metric-explode-val">0%</span>
+          </div>
+          <div class="metric-bar-container">
+            <div id="explode-bar" class="metric-bar-fill"></div>
+          </div>
+          <div class="metric-row" style="margin-top: 8px; font-size: 10px; opacity: 0.7;">
+            <span>CONTROLS:</span>
+            <span>2 HANDS = EXPAND | 1 HAND = ROTATE</span>
+          </div>
+        </div>
+
+        <!-- Real-Time Camera & Landmark Preview (Picture-in-Picture) -->
+        <div class="hud-camera-preview">
+          <span class="camera-tag">CAMERA FEED // SENSOR 01</span>
+          <video id="camera-video" playsinline autoplay muted></video>
+          <canvas id="hand-canvas" width="200" height="150"></canvas>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- App Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
